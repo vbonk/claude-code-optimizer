@@ -1,351 +1,310 @@
-# repo-template
+<div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![AI-Optimized](https://img.shields.io/badge/AI--Optimized-Claude%20%7C%20Copilot%20%7C%20Codex-blue)](https://github.com/vbonk/repo-template)
-[![GitHub last commit](https://img.shields.io/github/last-commit/vbonk/repo-template)](https://github.com/vbonk/repo-template/commits)
+# Claude Code Optimizer
 
-**A GitHub repository template optimized for AI-assisted development.**
+**Audit and optimize your Claude Code installation to current best practices**
 
-Stop wasting time on boilerplate. Start every project with security best practices, CI/CD, and AI agent configurations already in place.
+[![Claude Code 2.1.0+](https://img.shields.io/badge/Claude%20Code-2.1.0%2B-blue?style=flat-square&logo=anthropic)](https://code.claude.com)
+[![Version](https://img.shields.io/badge/version-1.1.0-green?style=flat-square)](https://github.com/vbonk/claude-code-optimizer/releases)
+[![License](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
+[![Validation](https://img.shields.io/badge/checks-34%2F34%20passed-brightgreen?style=flat-square)](#validation)
 
-<p align="center">
-  <a href="https://github.com/vbonk/repo-template/generate">
-    <img src="https://img.shields.io/badge/Use%20This%20Template-238636?style=for-the-badge&logo=github&logoColor=white" alt="Use this template">
-  </a>
-</p>
+[Features](#features) • [Installation](#installation) • [Usage](#usage) • [Architecture](#architecture) • [Documentation](#documentation)
 
----
-
-<details>
-<summary><strong>Table of Contents</strong></summary>
-
-- [Who Is This For?](#who-is-this-for)
-- [Why This Template?](#why-this-template)
-- [Features](#features)
-- [What's Included](#whats-included)
-- [Quick Start](#quick-start)
-- [What's Next?](#whats-next)
-- [AI Agent Configuration](#ai-agent-configuration)
-- [CI/CD](#cicd)
-- [Customization Guide](#customization-guide)
-- [FAQ](#faq)
-- [Contributing](#contributing)
-- [Security](#security)
-- [License](#license)
-
-</details>
+</div>
 
 ---
 
-## Who Is This For?
+## Why This Exists
 
-This template is built for:
+Claude Code is evolving rapidly—2.1.0 alone shipped with 1,096 commits. Configuration options are scattered across multiple files, best practices aren't always obvious, and it's easy to miss features that could dramatically improve your workflow.
 
-- **Solo developers** tired of repetitive project setup
-- **Teams** wanting consistent structure across repositories
-- **AI-first developers** using Claude Code, GitHub Copilot, Codex, or similar tools
-- **Security-conscious developers** who want sensible defaults without the research
-
-If you create GitHub repositories regularly and want them production-ready from the start, this is for you.
-
----
-
-## Why This Template?
-
-| Traditional Setup | With This Template |
-|-------------------|-------------------|
-| 30+ minutes configuring | 2 minutes to start |
-| Security gaps from forgetting steps | Secure by default |
-| AI agents need context each session | AI agents productive immediately |
-| Inconsistent structure across projects | Same patterns everywhere |
-
----
+**Claude Code Optimizer** is a skill that audits your setup, identifies issues, and guides you to an optimized configuration.
 
 ## Features
 
-- **🤖 AI-Agent Ready** — Pre-configured for Claude Code, GitHub Copilot, and Codex
-- **🔒 Secure by Default** — Secrets protection, SHA-pinned Actions, Dependabot
-- **⚡ Minimal Setup** — Works immediately, customize in minutes
-- **📝 Template-Friendly** — Clear TODOs, easy find-and-replace
-- **🔄 CI/CD Included** — GitHub Actions workflow ready to uncomment
-- **📋 Issue Templates** — Structured YAML forms for bugs and features
+- **🔍 Comprehensive Auditing** — Analyzes settings, hooks, permissions, commands, agents, and skills
+- **🎯 Specialized Agents** — Five focused auditors that can run independently or together
+- **📋 Actionable Reports** — Every finding includes severity, impact, and specific fix instructions
+- **🔒 Read-Only Safe** — Audit mode never modifies files; all changes require explicit consent
+- **📚 Built-in References** — Detailed guides for hooks, permissions, configuration, and troubleshooting
+- **⚡ Current** — Targets Claude Code 2.1.0+ with all 12 hook events and latest settings schema
 
----
+## Installation
 
-## What's Included
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  repo-template                                              │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  📁 .github/                                                │
-│     ├── workflows/ci.yml      → CI pipeline (multi-stack)  │
-│     ├── ISSUE_TEMPLATE/       → Bug & feature forms        │
-│     ├── PULL_REQUEST_TEMPLATE → PR checklist               │
-│     ├── dependabot.yml        → Dependency updates         │
-│     └── copilot-instructions  → GitHub Copilot config      │
-│                                                             │
-│  📁 .claude/                                                │
-│     └── commands/             → Custom slash commands       │
-│                                                             │
-│  📁 src/                      → Your source code            │
-│  📁 tests/                    → Your tests                  │
-│  📁 docs/                     → Documentation               │
-│  📁 scripts/                  → Automation scripts          │
-│                                                             │
-│  📄 CLAUDE.md                 → Claude Code instructions    │
-│  📄 AGENTS.md                 → Cross-agent compatibility   │
-│  📄 CONTRIBUTING.md           → Contribution guidelines     │
-│  📄 SECURITY.md               → Security policy             │
-│  📄 .gitignore                → Comprehensive patterns      │
-│  📄 .editorconfig             → Consistent formatting       │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Quick Start
-
-### 1. Create Your Repository
-
-Click **[Use this template](https://github.com/vbonk/repo-template/generate)** → Name your repo → Create
-
-### 2. Clone and Open
+### Quick Install (Recommended)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+# Clone the repository
+git clone https://github.com/vbonk/claude-code-optimizer.git
+cd claude-code-optimizer
+
+# Run the installer
+./scripts/install.sh
 ```
 
-### 3. Customize (2 options)
+### Manual Install
 
-**Option A: AI-Assisted (recommended)**
-
-Open with Claude Code and run:
-```
-/project:init-template
-```
-The AI will ask for your project details and update all files automatically.
-
-**Option B: Manual**
-
-Find and update `TODO` comments:
 ```bash
-grep -r "TODO" --include="*.md" --include="*.yml"
+# Install skill
+mkdir -p ~/.claude/skills/claude-code-optimizer
+cp -r SKILL.md references ~/.claude/skills/claude-code-optimizer/
+
+# Install agents
+mkdir -p ~/.claude/agents
+cp agents/*.md ~/.claude/agents/
 ```
 
-| File | What to Change |
-|------|---------------|
-| `README.md` | Project name, description, badges |
-| `CLAUDE.md` | Your tech stack and commands |
-| `AGENTS.md` | Same as CLAUDE.md (for other AI tools) |
-| `.github/workflows/ci.yml` | Uncomment your language section |
-| `.github/dependabot.yml` | Uncomment your package ecosystem |
-| `SECURITY.md` | Your security contact email |
+### Project-Scoped Install
 
-### 4. Start Building
+For project-specific installation (useful for teams):
 
-Your AI coding assistant now understands your project structure and conventions from the first prompt.
-
-```mermaid
-flowchart LR
-    A[🎯 Use Template] --> B[📥 Clone Repo]
-    B --> C[🤖 Run /init-template]
-    C --> D[💬 Answer Questions]
-    D --> E[✨ Files Auto-Updated]
-    E --> F[🚀 Start Coding]
-
-    style A fill:#238636,color:#fff
-    style F fill:#238636,color:#fff
+```bash
+./scripts/install.sh --project
 ```
 
----
+This installs to `.claude/skills/` and `.claude/agents/` in your current directory.
 
-## What's Next?
+### Verify Installation
 
-After setup, here are some things to try:
-
-| Action | How |
-|--------|-----|
-| **Add your first feature** | Ask Claude: "Create a basic Express server in src/" |
-| **Run CI locally** | `npm test` or your stack's test command |
-| **Create an issue** | Try the bug report form — see how structured it is |
-| **Enable security features** | Settings → Security → Enable secret scanning |
-
-### First Week Checklist
-
-- [ ] Add your source code to `src/`
-- [ ] Write your first test in `tests/`
-- [ ] Push a commit and watch CI run
-- [ ] Invite collaborators (they'll see CONTRIBUTING.md)
-- [ ] Enable GitHub security features (see [Security](#security))
-
----
-
-## AI Agent Configuration
-
-This template includes instruction files for multiple AI coding assistants:
-
-| File | AI Tool | What It Contains |
-|------|---------|------------------|
-| `CLAUDE.md` | Claude Code | Project context, commands, code style, structure |
-| `.github/copilot-instructions.md` | GitHub Copilot | Code generation guidelines, security rules |
-| `AGENTS.md` | Codex, Gemini, Cursor, others | Cross-agent compatibility layer |
-
-**Why this matters:** AI agents perform significantly better when they understand your project's conventions, tech stack, and workflows upfront. Instead of re-explaining your preferences each session, the agent reads these files automatically.
-
-**Custom commands:** The `.claude/commands/` folder contains slash commands like `/project:init-template`. You can add your own for repetitive tasks.
-
----
-
-## CI/CD
-
-The included workflow (`.github/workflows/ci.yml`) supports multiple languages. Uncomment the section for your stack:
-
-| Stack | What It Runs |
-|-------|--------------|
-| **Node.js/TypeScript** | npm ci, lint, test, build |
-| **Python** | pip install, pytest, ruff |
-| **Go** | go build, go test, go vet |
-| **Rust** | cargo build, cargo test, cargo clippy |
-
-### Security Features
-
-The CI workflow follows GitHub's security best practices:
-
-- **Actions pinned to SHA** — Prevents supply chain attacks from compromised tags
-- **Explicit permissions** — Least-privilege access, not default write-all
-- **30-minute timeout** — Prevents runaway jobs from consuming resources
-- **Concurrency controls** — Cancels outdated runs when new commits push
-
----
-
-## Customization Guide
-
-<details>
-<summary><strong>Adding a New Language</strong></summary>
-
-1. Uncomment the relevant section in `.github/workflows/ci.yml`
-2. Uncomment the ecosystem in `.github/dependabot.yml`
-3. Update `CLAUDE.md` with your specific commands
-4. Add language-specific config files (package.json, pyproject.toml, etc.)
-
-</details>
-
-<details>
-<summary><strong>Setting Up Pre-commit Hooks</strong></summary>
-
-See [CONTRIBUTING.md](CONTRIBUTING.md#pre-commit-hooks-optional) for instructions on setting up Husky and lint-staged.
-
-</details>
-
-<details>
-<summary><strong>Enabling GitHub Security Features</strong></summary>
-
-In your repository Settings → Security:
-
-1. Enable **Secret scanning** — Detects API keys in commits
-2. Enable **Push protection** — Blocks pushes containing secrets
-3. Enable **Dependabot alerts** — Notifies of vulnerable dependencies
-4. Enable **Code scanning** — Finds vulnerabilities via CodeQL (public repos)
-
-</details>
-
-<details>
-<summary><strong>Creating Custom Slash Commands</strong></summary>
-
-Add Markdown files to `.claude/commands/`:
-
-```markdown
-# .claude/commands/my-command.md
-
-Instructions for Claude when this command is invoked...
+```bash
+claude --version  # Should be 2.1.0+
 ```
 
-Then use with `/project:my-command` in Claude Code.
+Then in Claude Code:
+```
+What skills are available?
+```
 
-</details>
+You should see `claude-code-optimizer` listed.
 
----
+## Usage
 
-## FAQ
+### Full Audit
 
-<details>
-<summary><strong>I don't use Node.js. Will this work for me?</strong></summary>
+Ask Claude Code to audit your setup:
 
-Yes. The template is language-agnostic. The CI workflow has commented sections for Python, Go, and Rust. Uncomment the one you need, or add your own. The directory structure (`src/`, `tests/`, etc.) works for any language.
+```
+Audit my Claude Code setup
+```
 
-</details>
+Or be specific:
 
-<details>
-<summary><strong>Do I need to use Claude Code?</strong></summary>
+```
+Run a comprehensive Claude Code audit and show me what needs fixing
+```
 
-No. The template works with any workflow. The AI configuration files (CLAUDE.md, AGENTS.md, copilot-instructions.md) are just text files — they won't affect anything if you don't use AI tools. But if you do use them, your agents will be more effective.
+### Targeted Audits
 
-</details>
+Run specific audits when you know what you're looking for:
 
-<details>
-<summary><strong>The CI workflow failed. What do I do?</strong></summary>
+| Request | What It Does |
+|---------|--------------|
+| `Check my Claude Code configuration` | Audits settings.json and CLAUDE.md files |
+| `Audit my hooks` | Validates hook events, matchers, and security |
+| `Review my permissions setup` | Analyzes allow/deny rules for security gaps |
+| `Check my commands and agents` | Audits workflow components for best practices |
 
-Common causes:
-1. **No package.json/requirements.txt** — The workflow expects dependencies. Comment out the install step or add your dependency file.
-2. **No test script** — Add a test script or comment out the test step.
-3. **Wrong language section** — Make sure you uncommented the right section.
+### Example Output
 
-Check the Actions tab for specific error messages.
+```
+## Claude Code Audit Report
 
-</details>
+**Version**: 2.1.2
+**Health**: ✅ Pass
 
-<details>
-<summary><strong>How do I update after the template improves?</strong></summary>
+### Findings
 
-Repositories created from templates don't auto-update. To get improvements:
-1. Check the [template repo](https://github.com/vbonk/repo-template) for changes
-2. Manually copy relevant updates to your project
-3. Or use the template again for new projects
+| Severity | Area | Issue | Fix |
+|----------|------|-------|-----|
+| 🔴 High | Hooks | Invalid event name `postToolUse` | Change to `PostToolUse` (case-sensitive) |
+| 🟡 Medium | Permissions | Overly broad `Bash(*)` allow rule | Scope to specific commands |
+| 🟢 Info | Config | No CLAUDE.md in project root | Consider adding project context |
 
-</details>
+### Recommendations
+1. Fix the hook event name immediately—hooks won't fire with incorrect casing
+2. Tighten Bash permissions to reduce security surface
+3. Add CLAUDE.md to improve Claude's understanding of your project
+```
 
----
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     Claude Code Optimizer                        │
+├─────────────────────────────────────────────────────────────────┤
+│  SKILL.md                                                        │
+│  ├── Trigger detection (audit, optimize, check, improve)        │
+│  ├── Quick reference (settings keys, hook events, tool names)   │
+│  └── Agent orchestration                                         │
+├─────────────────────────────────────────────────────────────────┤
+│  Specialized Agents                                              │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
+│  │ config-auditor  │  │ hooks-auditor   │  │ permissions-    │  │
+│  │                 │  │                 │  │ auditor         │  │
+│  │ • settings.json │  │ • Event names   │  │ • Allow/deny    │  │
+│  │ • CLAUDE.md     │  │ • Matchers      │  │ • Wildcards     │  │
+│  │ • JSON validity │  │ • Security      │  │ • Conflicts     │  │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
+│  ┌─────────────────┐  ┌─────────────────┐                       │
+│  │ workflow-       │  │ audit-          │                       │
+│  │ auditor         │  │ orchestrator    │ ← Coordinates all     │
+│  │                 │  │                 │                       │
+│  │ • Commands      │  │ • Full audits   │                       │
+│  │ • Agents        │  │ • Synthesis     │                       │
+│  │ • Skills        │  │ • Prioritization│                       │
+│  └─────────────────┘  └─────────────────┘                       │
+├─────────────────────────────────────────────────────────────────┤
+│  References (loaded on demand)                                   │
+│  • config-guide.md • hooks-guide.md • permissions-guide.md      │
+│  • troubleshooting.md                                            │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Why Subagents?
+
+1. **Separation of concerns** — Each auditor is an expert in one domain
+2. **Parallel execution** — Multiple audits can run simultaneously  
+3. **Maintainability** — Update one auditor without touching others
+4. **Context efficiency** — Only loads relevant expertise for each audit type
+5. **Testability** — Each agent can be validated independently
+
+## Documentation
+
+### Included References
+
+| Guide | Contents |
+|-------|----------|
+| [`references/config-guide.md`](references/config-guide.md) | Complete settings.json schema, CLAUDE.md best practices, file locations |
+| [`references/hooks-guide.md`](references/hooks-guide.md) | All 12 hook events, matcher patterns, input/output schemas, security |
+| [`references/permissions-guide.md`](references/permissions-guide.md) | Permission strategies, wildcard syntax, common patterns |
+| [`references/troubleshooting.md`](references/troubleshooting.md) | Common issues, diagnostic commands, solutions |
+
+### Official Claude Code Documentation
+
+- [Skills](https://code.claude.com/docs/en/skills) — How skills work
+- [Hooks Reference](https://code.claude.com/docs/en/hooks) — Complete hook documentation
+- [Subagents](https://code.claude.com/docs/en/sub-agents) — Agent architecture
+- [Settings](https://code.claude.com/docs/en/settings) — Configuration options
+
+## What Gets Checked
+
+### Configuration (`config-auditor`)
+- `~/.claude/settings.json` — User settings
+- `.claude/settings.json` — Project settings  
+- `CLAUDE.md` / `.claude/CLAUDE.md` — Project memory
+- `CLAUDE.local.md` — Local overrides
+- JSON validity and schema compliance
+
+### Hooks (`hooks-auditor`)
+- All 12 event names validated (case-sensitive)
+- Matcher patterns (regex validity, tool name accuracy)
+- Command security (injection risks, data exfiltration)
+- Timeout configurations
+
+### Permissions (`permissions-auditor`)
+- Allow/deny rule effectiveness
+- Overly permissive patterns
+- Conflicting rules
+- Security recommendations
+
+### Workflow Components (`workflow-auditor`)
+- Custom slash commands (frontmatter, descriptions)
+- Subagents (valid schemas, appropriate tools)
+- Skills (trigger descriptions, file structure)
+
+## Validation
+
+This skill has passed comprehensive validation:
+
+```
+✅ 34/34 checks passed
+
+Installation
+  ✅ Skill directory structure correct
+  ✅ Agents installed to correct location
+  ✅ Install script executes successfully
+
+Schema Validation  
+  ✅ SKILL.md frontmatter valid
+  ✅ All 5 agents have valid frontmatter
+  ✅ All tool names correct (Bash, Read, Write, etc.)
+  ✅ All model values valid (inherit)
+
+Documentation
+  ✅ All 12 hook events documented
+  ✅ SKILL.md under 500 lines
+  ✅ Descriptions under 1024 chars
+
+Version Compatibility
+  ✅ Targets Claude Code 2.1.0+
+  ✅ Tested with Claude Code 2.1.2
+```
+
+## Requirements
+
+- **Claude Code**: 2.1.0 or later
+- **Subscription**: Claude Pro, Claude Max, or API access
+- **OS**: macOS, Linux, or Windows (WSL)
+
+## File Structure
+
+```
+claude-code-optimizer/
+├── SKILL.md                 # Main skill (triggers on audit/optimize requests)
+├── MANIFEST.md              # Human-readable installation guide
+├── HANDOFF.md               # Development context for contributors
+├── QA-PROCESS.md            # Validation framework
+├── README.md                # This file
+├── LICENSE                  # MIT License
+├── agents/
+│   ├── audit-orchestrator.md    # Coordinates comprehensive audits
+│   ├── config-auditor.md        # Configuration specialist
+│   ├── hooks-auditor.md         # Hooks specialist  
+│   ├── permissions-auditor.md   # Permissions specialist
+│   └── workflow-auditor.md      # Commands/agents/skills specialist
+├── references/
+│   ├── config-guide.md          # Configuration deep-dive
+│   ├── hooks-guide.md           # Hook patterns and examples
+│   ├── permissions-guide.md     # Permission strategies
+│   └── troubleshooting.md       # Common issues and solutions
+└── scripts/
+    └── install.sh               # Installation script
+```
 
 ## Contributing
 
-Contributions to improve this template are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributions are welcome! Please see [HANDOFF.md](HANDOFF.md) for development context and [QA-PROCESS.md](QA-PROCESS.md) for the validation framework.
 
-**Ideas for contributions:**
-- Language-specific add-on configs
-- Additional CI/CD patterns
-- Improved documentation
-- New custom slash commands
+### Development Workflow
 
----
+1. Fork the repository
+2. Make your changes
+3. Run the QA process validation
+4. Submit a pull request
 
-## Security
+### Areas for Contribution
 
-See [SECURITY.md](SECURITY.md) for:
-- How to report vulnerabilities
-- Security features included in this template
-- Recommended GitHub security settings
-
----
+- Additional audit checks
+- New reference documentation
+- Edge case handling
+- Performance optimization
+- Bug fixes
 
 ## License
 
-[MIT](LICENSE) — Use freely, attribution appreciated.
+MIT License — see [LICENSE](LICENSE) for details.
+
+## Attribution
+
+<div align="center">
+
+**Designed by Anthony Velte & Claude Opus 4.5**
+
+Built with care to help developers get the most out of Claude Code.
 
 ---
 
-## Acknowledgments
+*If this skill helped you, consider starring the repo ⭐*
 
-This template incorporates best practices from:
-- [Anthropic's Claude Code documentation](https://www.anthropic.com/engineering/claude-code-best-practices)
-- [GitHub Actions security best practices](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
-- Community feedback and real-world usage
-
----
-
-<p align="center">
-  <sub>Built for developers who'd rather write code than configure repos.</sub>
-</p>
+</div>
