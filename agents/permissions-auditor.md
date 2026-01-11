@@ -45,11 +45,29 @@ cat .claude/settings.json 2>/dev/null | jq '.permissions // empty'
 - `Tool` - exact tool match
 - `Tool(pattern:*)` - command pattern with any description
 - `Tool(*:*)` - any command, any description (dangerous)
+- `Bash(git *:*)` - wildcard in command (matches `git status`, `git commit`, etc.)
+- `Task(AgentName)` - specific subagent (2.1.0+)
+- `mcp__server__*` - all tools from MCP server (2.0.70+)
+
+### Unreachable Rule Detection (2.1.3+)
+Claude Code 2.1.3 warns about unreachable rules. Check for:
+- Deny rules that can never trigger (covered by earlier allow)
+- Allow rules shadowed by broader allows
+- Redundant rules (same pattern appears twice)
+
+Example unreachable rule:
+```json
+{
+  "allow": ["Bash(*)"],      // Allows ALL bash commands
+  "deny": ["Bash(rm -rf:*)"] // UNREACHABLE - already allowed above
+}
+```
 
 ### Conflict Detection
 - Allow and deny for same tool
 - Broad allow with narrow deny (may not work as expected)
 - Project overriding user deny (potential security bypass)
+- Unreachable rules that will never be evaluated
 
 ## Output Format
 
@@ -75,3 +93,6 @@ cat .claude/settings.json 2>/dev/null | jq '.permissions // empty'
 - Scope broad allows more narrowly
 - Use specific patterns over wildcards
 - Consider read-only mode for sensitive projects
+- Fix unreachable rules (reorder or remove)
+- Use `Task(AgentName)` to restrict specific subagents
+- Use `mcp__server__*` for MCP server-level permissions
