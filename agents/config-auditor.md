@@ -72,6 +72,56 @@ Check for useful env vars:
 }
 ```
 
+## Context Usage Optimization
+
+### Why It Matters
+Claude Code has a limited context window. Bloated configurations reduce space for actual work and cause frequent compactions.
+
+### Size Checks
+```bash
+# Check CLAUDE.md sizes
+wc -l CLAUDE.md .claude/CLAUDE.md ~/.claude/CLAUDE.md 2>/dev/null
+
+# Check rules directory sizes
+find .claude/rules ~/.claude/rules -name "*.md" -exec wc -l {} \; 2>/dev/null | awk '{sum+=$1} END {print "Total rules lines:", sum}'
+
+# Check skill sizes (if any installed)
+find ~/.claude/skills -name "SKILL.md" -exec wc -l {} \; 2>/dev/null
+```
+
+### Thresholds
+
+| Item | Ideal | Warning | Critical |
+|------|-------|---------|----------|
+| CLAUDE.md | < 200 lines | 200-500 lines | > 500 lines |
+| Total rules | < 500 lines | 500-1000 lines | > 1000 lines |
+| Single rule file | < 100 lines | 100-200 lines | > 200 lines |
+| SKILL.md | < 300 lines | 300-500 lines | > 500 lines |
+
+### Optimization Recommendations
+
+**If CLAUDE.md is too large:**
+- Move detailed guides to `.claude/rules/` with `paths:` scoping
+- Use `@filename` imports instead of inline content
+- Keep only project-critical instructions in CLAUDE.md
+
+**If rules are too large:**
+- Split by concern (API rules, test rules, UI rules)
+- Use narrow `paths:` patterns to load only when relevant
+- Remove duplicate or conflicting rules
+
+**If frequent compactions occur:**
+- Run `/compact` proactively before long tasks
+- Reduce attached file count
+- Close unused background agents
+- Consider `/clear` for fresh starts
+
+### Check for Bloat Indicators
+- Multiple CLAUDE.md files (user + project + local)
+- Rules files without `paths:` (always loaded)
+- Large inline code examples in documentation
+- Verbose explanations that could be links
+
 ## Common Issues to Flag
 
 - Invalid JSON syntax
@@ -82,3 +132,5 @@ Check for useful env vars:
 - Conflicting user/project settings
 - Windows managed settings in deprecated path
 - Missing `releaseChannel` configuration (defaults to stable)
+- Context bloat from oversized configuration files
+- Rules without path scoping (always loaded)

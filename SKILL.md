@@ -98,6 +98,7 @@ For detailed audit procedures, see:
 - `references/config-guide.md` - Configuration deep-dive
 - `references/hooks-guide.md` - Hook patterns and examples
 - `references/permissions-guide.md` - Permission strategies
+- `references/security-guide.md` - Security audit procedures
 - `references/troubleshooting.md` - Common problems and solutions
 
 ## Version Compatibility

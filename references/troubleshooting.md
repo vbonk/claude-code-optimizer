@@ -104,15 +104,50 @@ echo '{"tool_name":"Bash","tool_input":{"command":"ls"}}' | your-hook-command
 **Symptoms**: Claude losing track of conversation, compacting frequently
 
 **Checks**:
-1. CLAUDE.md size
+1. CLAUDE.md size (target < 200 lines)
 2. Number of files in context
-3. Rules files size
+3. Rules files size (total < 500 lines)
 4. Transcript length
+5. Background agents running
 
-**Fix**: 
-- Reduce CLAUDE.md size
-- Use `/compact` command
-- Split large rules into conditional rules with `paths:`
+**Quick Diagnostics**:
+```bash
+# Check configuration sizes
+wc -l CLAUDE.md .claude/CLAUDE.md 2>/dev/null
+find .claude/rules -name "*.md" -exec wc -l {} \; 2>/dev/null
+
+# In Claude Code
+/context  # See current usage
+/stats    # See session statistics
+```
+
+**Fix**:
+- Reduce CLAUDE.md size (move to rules/)
+- Use `/compact` command proactively
+- Split large rules with `paths:` scoping
+- Close background agents: use `KillShell` or restart
+- Use `/clear` for fresh context
+
+### Context Optimization Best Practices
+
+**Configuration Sizing**:
+| Item | Target | Action if exceeded |
+|------|--------|-------------------|
+| CLAUDE.md | < 200 lines | Split to rules/ |
+| Single rule | < 100 lines | Break into focused files |
+| Total rules | < 500 lines | Use paths: scoping |
+
+**Reduce Context Load**:
+- Use `@filename` imports sparingly
+- Scope rules with `paths:` patterns
+- Avoid loading files you don't need
+- Close completed background tasks
+
+**Proactive Management**:
+- Run `/compact` before large tasks
+- Use `/clear` between unrelated tasks
+- Name sessions (`/rename`) for easy context switching
+- Review `/context` output regularly
 
 ### Session Persistence Issues
 
