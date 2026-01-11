@@ -4,8 +4,8 @@
 
 **Audit and optimize your Claude Code installation to current best practices**
 
-[![Claude Code 2.1.0+](https://img.shields.io/badge/Claude%20Code-2.1.0%2B-blue?style=flat-square&logo=anthropic)](https://code.claude.com)
-[![Version](https://img.shields.io/badge/version-1.1.0-green?style=flat-square)](https://github.com/vbonk/claude-code-optimizer/releases)
+[![Claude Code 2.1.3+](https://img.shields.io/badge/Claude%20Code-2.1.3%2B-blue?style=flat-square&logo=anthropic)](https://code.claude.com)
+[![Version](https://img.shields.io/badge/version-1.2.0-green?style=flat-square)](https://github.com/vbonk/claude-code-optimizer/releases)
 [![License](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
 [![Validation](https://img.shields.io/badge/checks-34%2F34%20passed-brightgreen?style=flat-square)](#validation)
 
@@ -23,12 +23,14 @@ Claude Code is evolving rapidly—2.1.0 alone shipped with 1,096 commits. Config
 
 ## Features
 
-- **🔍 Comprehensive Auditing** — Analyzes settings, hooks, permissions, commands, agents, and skills
-- **🎯 Specialized Agents** — Five focused auditors that can run independently or together
+- **🔍 Comprehensive Auditing** — Analyzes settings, hooks, permissions, MCP servers, commands, agents, and skills
+- **🎯 Six Specialized Agents** — Focused auditors for config, hooks, permissions, MCP, workflows, plus orchestrator
+- **🔒 Security Analysis** — Detects hardcoded secrets, dangerous patterns, data exfiltration risks
+- **📊 Context Optimization** — Identifies bloated configs causing context exhaustion
+- **✅ Pattern Validation** — Catches permission patterns that won't match as expected
 - **📋 Actionable Reports** — Every finding includes severity, impact, and specific fix instructions
-- **🔒 Read-Only Safe** — Audit mode never modifies files; all changes require explicit consent
-- **📚 Built-in References** — Detailed guides for hooks, permissions, configuration, and troubleshooting
-- **⚡ Current** — Targets Claude Code 2.1.0+ with all 12 hook events and latest settings schema
+- **📚 Built-in References** — Five detailed guides including security audit procedures
+- **⚡ Current** — Targets Claude Code 2.1.3+ with all 12 hook events and latest settings schema
 
 ## Installation
 
@@ -102,8 +104,10 @@ Run specific audits when you know what you're looking for:
 |---------|--------------|
 | `Check my Claude Code configuration` | Audits settings.json and CLAUDE.md files |
 | `Audit my hooks` | Validates hook events, matchers, and security |
-| `Review my permissions setup` | Analyzes allow/deny rules for security gaps |
+| `Review my permissions setup` | Analyzes allow/deny rules and pattern validity |
+| `Audit my MCP servers` | Checks MCP configs for secrets and security |
 | `Check my commands and agents` | Audits workflow components for best practices |
+| `Run a security audit` | Comprehensive security review across all areas |
 
 ### Example Output
 
@@ -130,35 +134,34 @@ Run specific audits when you know what you're looking for:
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                     Claude Code Optimizer                        │
-├─────────────────────────────────────────────────────────────────┤
-│  SKILL.md                                                        │
-│  ├── Trigger detection (audit, optimize, check, improve)        │
-│  ├── Quick reference (settings keys, hook events, tool names)   │
-│  └── Agent orchestration                                         │
-├─────────────────────────────────────────────────────────────────┤
-│  Specialized Agents                                              │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
-│  │ config-auditor  │  │ hooks-auditor   │  │ permissions-    │  │
-│  │                 │  │                 │  │ auditor         │  │
-│  │ • settings.json │  │ • Event names   │  │ • Allow/deny    │  │
-│  │ • CLAUDE.md     │  │ • Matchers      │  │ • Wildcards     │  │
-│  │ • JSON validity │  │ • Security      │  │ • Conflicts     │  │
-│  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
-│  ┌─────────────────┐  ┌─────────────────┐                       │
-│  │ workflow-       │  │ audit-          │                       │
-│  │ auditor         │  │ orchestrator    │ ← Coordinates all     │
-│  │                 │  │                 │                       │
-│  │ • Commands      │  │ • Full audits   │                       │
-│  │ • Agents        │  │ • Synthesis     │                       │
-│  │ • Skills        │  │ • Prioritization│                       │
-│  └─────────────────┘  └─────────────────┘                       │
-├─────────────────────────────────────────────────────────────────┤
-│  References (loaded on demand)                                   │
-│  • config-guide.md • hooks-guide.md • permissions-guide.md      │
-│  • troubleshooting.md                                            │
-└─────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│                       Claude Code Optimizer                           │
+├──────────────────────────────────────────────────────────────────────┤
+│  SKILL.md                                                             │
+│  ├── Trigger detection (audit, optimize, check, improve)             │
+│  ├── Quick reference (settings keys, hook events, tool names)        │
+│  └── Agent orchestration                                              │
+├──────────────────────────────────────────────────────────────────────┤
+│  Specialized Agents (6)                                               │
+│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐          │
+│  │ config-auditor │  │ hooks-auditor  │  │ permissions-   │          │
+│  │                │  │                │  │ auditor        │          │
+│  │ • settings.json│  │ • Event names  │  │ • Allow/deny   │          │
+│  │ • CLAUDE.md    │  │ • Matchers     │  │ • Patterns     │          │
+│  │ • Context size │  │ • Security     │  │ • Unreachable  │          │
+│  └────────────────┘  └────────────────┘  └────────────────┘          │
+│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐          │
+│  │ mcp-auditor    │  │ workflow-      │  │ audit-         │          │
+│  │                │  │ auditor        │  │ orchestrator   │          │
+│  │ • MCP servers  │  │ • Commands     │  │ • Coordinates  │          │
+│  │ • Secrets      │  │ • Agents       │  │ • Synthesizes  │          │
+│  │ • Permissions  │  │ • Skills       │  │ • Prioritizes  │          │
+│  └────────────────┘  └────────────────┘  └────────────────┘          │
+├──────────────────────────────────────────────────────────────────────┤
+│  References (5 guides, loaded on demand)                              │
+│  • config-guide.md • hooks-guide.md • permissions-guide.md           │
+│  • security-guide.md • troubleshooting.md                             │
+└──────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Why Subagents?
@@ -175,10 +178,11 @@ Run specific audits when you know what you're looking for:
 
 | Guide | Contents |
 |-------|----------|
-| [`references/config-guide.md`](references/config-guide.md) | Complete settings.json schema, CLAUDE.md best practices, file locations |
-| [`references/hooks-guide.md`](references/hooks-guide.md) | All 12 hook events, matcher patterns, input/output schemas, security |
-| [`references/permissions-guide.md`](references/permissions-guide.md) | Permission strategies, wildcard syntax, common patterns |
-| [`references/troubleshooting.md`](references/troubleshooting.md) | Common issues, diagnostic commands, solutions |
+| [`references/config-guide.md`](references/config-guide.md) | Settings.json schema, CLAUDE.md best practices, context optimization |
+| [`references/hooks-guide.md`](references/hooks-guide.md) | All 12 hook events, matcher patterns, input/output schemas |
+| [`references/permissions-guide.md`](references/permissions-guide.md) | Permission strategies, pattern validation, unreachable rule detection |
+| [`references/security-guide.md`](references/security-guide.md) | Security audit procedures, threat model, incident response |
+| [`references/troubleshooting.md`](references/troubleshooting.md) | Common issues, diagnostic commands, context optimization |
 
 ### Official Claude Code Documentation
 
@@ -191,59 +195,70 @@ Run specific audits when you know what you're looking for:
 
 ### Configuration (`config-auditor`)
 - `~/.claude/settings.json` — User settings
-- `.claude/settings.json` — Project settings  
+- `.claude/settings.json` — Project settings
 - `CLAUDE.md` / `.claude/CLAUDE.md` — Project memory
 - `CLAUDE.local.md` — Local overrides
 - JSON validity and schema compliance
+- Context usage optimization (file sizes, bloat detection)
 
 ### Hooks (`hooks-auditor`)
 - All 12 event names validated (case-sensitive)
 - Matcher patterns (regex validity, tool name accuracy)
-- Command security (injection risks, data exfiltration)
+- Command security (injection risks, data exfiltration, dangerous patterns)
 - Timeout configurations
+- `once: true` and `agent_type` options
 
 ### Permissions (`permissions-auditor`)
 - Allow/deny rule effectiveness
-- Overly permissive patterns
-- Conflicting rules
-- Security recommendations
+- Pattern validation (catches common mistakes)
+- Unreachable rule detection (2.1.3+)
+- Conflicting rules and security recommendations
+
+### MCP Servers (`mcp-auditor`)
+- Server configurations in settings.json and .mcp.json
+- Hardcoded secret detection
+- Filesystem scope validation
+- Tool permission coverage
+- High-risk server identification
 
 ### Workflow Components (`workflow-auditor`)
 - Custom slash commands (frontmatter, descriptions)
 - Subagents (valid schemas, appropriate tools)
 - Skills (trigger descriptions, file structure)
+- Named sessions and `context: fork` usage
 
 ## Validation
 
 This skill has passed comprehensive validation:
 
 ```
-✅ 34/34 checks passed
+✅ 38/38 checks passed
 
 Installation
   ✅ Skill directory structure correct
   ✅ Agents installed to correct location
   ✅ Install script executes successfully
 
-Schema Validation  
+Schema Validation
   ✅ SKILL.md frontmatter valid
-  ✅ All 5 agents have valid frontmatter
+  ✅ All 6 agents have valid frontmatter
   ✅ All tool names correct (Bash, Read, Write, etc.)
   ✅ All model values valid (inherit)
 
 Documentation
   ✅ All 12 hook events documented
+  ✅ All 5 reference guides complete
   ✅ SKILL.md under 500 lines
   ✅ Descriptions under 1024 chars
 
 Version Compatibility
-  ✅ Targets Claude Code 2.1.0+
-  ✅ Tested with Claude Code 2.1.2
+  ✅ Targets Claude Code 2.1.3+
+  ✅ Tested with Claude Code 2.1.3
 ```
 
 ## Requirements
 
-- **Claude Code**: 2.1.0 or later
+- **Claude Code**: 2.1.3 or later
 - **Subscription**: Claude Pro, Claude Max, or API access
 - **OS**: macOS, Linux, or Windows (WSL)
 
@@ -260,13 +275,15 @@ claude-code-optimizer/
 ├── agents/
 │   ├── audit-orchestrator.md    # Coordinates comprehensive audits
 │   ├── config-auditor.md        # Configuration specialist
-│   ├── hooks-auditor.md         # Hooks specialist  
+│   ├── hooks-auditor.md         # Hooks specialist
+│   ├── mcp-auditor.md           # MCP server specialist
 │   ├── permissions-auditor.md   # Permissions specialist
 │   └── workflow-auditor.md      # Commands/agents/skills specialist
 ├── references/
 │   ├── config-guide.md          # Configuration deep-dive
 │   ├── hooks-guide.md           # Hook patterns and examples
 │   ├── permissions-guide.md     # Permission strategies
+│   ├── security-guide.md        # Security audit procedures
 │   └── troubleshooting.md       # Common issues and solutions
 └── scripts/
     └── install.sh               # Installation script
