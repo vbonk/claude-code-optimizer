@@ -29,10 +29,10 @@ This document defines a rigorous QA process to validate every verifiable claim i
 | VentureBeat Coverage | venturebeat.com | Feature announcements |
 | Boris Cherny (@bcherny) X | x.com/bcherny | Official announcements |
 
-### Verified Current State (as of Jan 9, 2026)
-- **Latest Claude Code Version**: 2.1.2 (released ~Jan 9, 2026 00:04 UTC)
+### Verified Current State (as of Jan 11, 2026)
+- **Latest Claude Code Version**: 2.1.3 (released ~Jan 10, 2026)
 - **Major Release**: 2.1.0 (Jan 7, 2026) - 1,096 commits
-- **Minimum Recommended Version for Skills**: 2.1.0 (skills hot-reload introduced)
+- **Minimum Recommended Version for Skills**: 2.1.3 (full feature coverage)
 
 ---
 

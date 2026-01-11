@@ -196,6 +196,76 @@ When running `claude --debug`:
 
 **Fix**: Regular `/compact`, close unused agents, restart periodically.
 
+## Advanced Features
+
+### LSP Integration (2.0.74+)
+
+Claude Code can use Language Server Protocol for enhanced code intelligence.
+
+**Symptoms**: No autocomplete suggestions, missing type information
+
+**Checks**:
+1. Language server installed for your language
+2. Project has proper config (tsconfig.json, pyproject.toml, etc.)
+3. LSP enabled in settings
+
+**Common LSP Servers**:
+| Language | Server |
+|----------|--------|
+| TypeScript/JS | typescript-language-server |
+| Python | pylsp, pyright |
+| Rust | rust-analyzer |
+| Go | gopls |
+
+### Claude in Chrome (2.0.72+)
+
+Browser integration for web-based workflows.
+
+**Setup**:
+1. Install Chrome extension (if available)
+2. Enable in Claude Code settings
+3. Grant browser permissions
+
+**Use Cases**:
+- Web scraping and testing
+- Browser automation
+- Screenshot capture
+
+### Keyboard Shortcuts
+
+**Navigation**:
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+C` | Cancel current operation |
+| `Ctrl+L` | Clear screen |
+| `Ctrl+D` | Exit Claude Code |
+| `Esc Esc` | Undo/rewind to checkpoint |
+| `Ctrl+B` | Background current task (2.1.0+) |
+
+**Vim Mode** (if enabled):
+| Shortcut | Action |
+|----------|--------|
+| `j/k` | Navigate history |
+| `i` | Insert mode |
+| `v` | Visual mode |
+| `dd` | Delete line |
+| `/` | Search |
+
+**Enable Vim mode**: `/config` → Vim mode toggle
+
+### Statistics and Monitoring
+
+Use `/stats` to view:
+- Session duration
+- Token usage
+- Tool invocations
+- Context utilization
+
+**Useful for**:
+- Monitoring API costs
+- Identifying context bloat
+- Debugging performance issues
+
 ## Getting Help
 
 1. `/bug` command to report issues
