@@ -51,11 +51,15 @@ Recommendations:
 
 ## Why This Exists
 
+Claude Code is powerful, but it's also complex. With hooks, permissions, MCP servers, custom agents, slash commands, and multiple configuration files, there's a lot that can go wrong — and a lot of potential that goes untapped.
+
 Claude Code is evolving rapidly—2.1.0 alone shipped with 1,096 commits. Configuration options are scattered across multiple files, best practices aren't always obvious, and it's easy to miss features that could dramatically improve your workflow.
 
 **Claude Code Optimizer** is a skill that audits your setup, identifies issues, and guides you to an optimized configuration.
 
 ## Features
+
+The optimizer doesn't just check if your files exist — it validates every configuration option, catches subtle mistakes, and explains exactly how to fix them.
 
 - **🔍 Comprehensive Auditing** — Analyzes settings, hooks, permissions, MCP servers, commands, agents, and skills
 - **🎯 Six Specialized Agents** — Focused auditors for config, hooks, permissions, MCP, workflows, plus orchestrator
@@ -67,6 +71,8 @@ Claude Code is evolving rapidly—2.1.0 alone shipped with 1,096 commits. Config
 - **⚡ Current** — Targets Claude Code 2.1.3+ with all 12 hook events and latest settings schema
 
 ## Installation
+
+Installation takes about 30 seconds. The skill installs to your Claude Code skills directory, and the specialized agents install alongside it. Once installed, Claude automatically loads the optimizer when you ask for an audit.
 
 ### Quick Install (Recommended)
 
@@ -115,6 +121,8 @@ What skills are available?
 You should see `claude-code-optimizer` listed.
 
 ## Usage
+
+Just ask Claude naturally. The optimizer triggers on phrases like "audit", "check", "optimize", or "review" when you're talking about your Claude Code setup. You don't need to remember specific commands.
 
 ### Full Audit
 
@@ -167,6 +175,8 @@ Run specific audits when you know what you're looking for:
 
 ## Architecture
 
+Under the hood, the optimizer uses a team of specialized agents. Each agent is an expert in one area — hooks, permissions, MCP servers, etc. When you request an audit, the orchestrator coordinates them, collects their findings, and synthesizes a unified report.
+
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
 │                       Claude Code Optimizer                           │
@@ -208,6 +218,8 @@ Run specific audits when you know what you're looking for:
 
 ## Documentation
 
+The optimizer includes detailed reference guides that Claude loads on demand. These go deeper than the audit output — use them when you want to understand the "why" behind a recommendation or learn advanced configuration patterns.
+
 ### Included References
 
 | Guide | Contents |
@@ -226,6 +238,8 @@ Run specific audits when you know what you're looking for:
 - [Settings](https://code.claude.com/docs/en/settings) — Configuration options
 
 ## What Gets Checked
+
+Here's exactly what each auditor examines. This isn't just a surface-level scan — each check validates against the current Claude Code 2.1.3 specification and flags anything that's misconfigured, insecure, or suboptimal.
 
 ### Configuration (`config-auditor`)
 - `~/.claude/settings.json` — User settings
@@ -263,6 +277,8 @@ Run specific audits when you know what you're looking for:
 
 ## Validation
 
+We've tested this skill against our own QA process — the same rigorous checks the optimizer runs on your setup. Every claim has been verified against the official Claude Code documentation.
+
 This skill has passed comprehensive validation:
 
 ```
@@ -292,11 +308,15 @@ Version Compatibility
 
 ## Requirements
 
+The optimizer works with any standard Claude Code installation. No additional dependencies required.
+
 - **Claude Code**: 2.1.3 or later
 - **Subscription**: Claude Pro, Claude Max, or API access
 - **OS**: macOS, Linux, or Windows (WSL)
 
 ## File Structure
+
+Everything is plain Markdown — no build step, no compilation. You can read and modify any file directly if you want to customize the optimizer's behavior.
 
 ```
 claude-code-optimizer/
@@ -325,7 +345,9 @@ claude-code-optimizer/
 
 ## Contributing
 
-Contributions are welcome! Please see [HANDOFF.md](HANDOFF.md) for development context and [QA-PROCESS.md](QA-PROCESS.md) for the validation framework.
+Found a bug? Have an idea for a new check? Contributions are welcome. The codebase is just Markdown files, so it's easy to understand and modify.
+
+Please see [HANDOFF.md](HANDOFF.md) for development context and [QA-PROCESS.md](QA-PROCESS.md) for the validation framework.
 
 ### Development Workflow
 
