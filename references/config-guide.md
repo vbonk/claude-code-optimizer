@@ -5,7 +5,9 @@
 ### Priority Order (highest to lowest)
 1. Project: `.claude/settings.json`
 2. User: `~/.claude/settings.json`
-3. Managed: `/etc/claude/settings.json` (Linux) or platform equivalent
+3. Managed (Linux): `/etc/claude/settings.json`
+4. Managed (Windows): `C:\Program Files\ClaudeCode\managed-settings.json`
+   - Note: `C:\ProgramData\ClaudeCode\` path deprecated in 2.1.2
 
 ### Memory File Locations
 | File | Scope | Git |
@@ -17,7 +19,7 @@
 | `~/.claude/rules/*.md` | User rules | N/A |
 | `.claude/rules/*.md` | Project rules | ✓ Commit |
 
-## Settings.json Schema (2.1.0+)
+## Settings.json Schema (2.1.3+)
 
 ```json
 {
@@ -25,6 +27,8 @@
   "theme": "dark",
   "language": "english",
   "respectGitignore": true,
+  "releaseChannel": "stable",
+  "fileSuggestion": "custom-search-command",
   "env": {
     "CUSTOM_VAR": "value"
   },
@@ -36,6 +40,19 @@
   "mcpServers": {}
 }
 ```
+
+### New Settings (2.0.65 - 2.1.3)
+| Key | Version | Purpose |
+|-----|---------|---------|
+| `fileSuggestion` | 2.0.65+ | Custom command for `@` file search |
+| `releaseChannel` | 2.1.3+ | `stable` or `latest` update channel |
+
+### Environment Variables
+| Variable | Purpose |
+|----------|---------|
+| `CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS` | Override default file read token limit |
+| `CLAUDE_CODE_SHELL` | Override default shell |
+| `FORCE_AUTOUPDATE_PLUGINS` | Control plugin auto-update behavior |
 
 ## CLAUDE.md Best Practices
 

@@ -128,6 +128,17 @@ MCP tools follow pattern: `mcp__servername__toolname`
 }
 ```
 
+### Server-Level Wildcards (2.0.70+)
+Allow or deny all tools from an MCP server:
+```json
+{
+  "permissions": {
+    "allow": ["mcp__filesystem__*"],
+    "deny": ["mcp__dangerous_server__*"]
+  }
+}
+```
+
 ## Subagent Permissions
 
 Disable specific subagents:
@@ -163,6 +174,39 @@ Disable specific subagents:
    - Review each connected MCP server
    - Audit allowed tools per server
 
+## Unreachable Rule Detection (2.1.3+)
+
+Claude Code 2.1.3 detects and warns about unreachable permission rules.
+
+### What Makes a Rule Unreachable
+- A deny rule that comes after a broader allow (never evaluated)
+- Duplicate rules (same pattern twice)
+- Rules shadowed by earlier broader rules
+
+### Example Problem
+```json
+{
+  "permissions": {
+    "allow": ["Bash(*)"],       // Allows ALL bash commands
+    "deny": ["Bash(rm -rf:*)"]  // UNREACHABLE - never evaluated!
+  }
+}
+```
+
+### Fix
+Reorder rules or use more specific allows:
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *:*)",
+      "Bash(npm *:*)"
+    ],
+    "deny": ["Bash(rm -rf:*)"]
+  }
+}
+```
+
 ## Common Issues
 
 | Issue | Cause | Fix |
@@ -170,3 +214,4 @@ Disable specific subagents:
 | Permission prompts despite allow | Typo in pattern | Check exact syntax |
 | Can't deny specific command | Allow rule too broad | Make allow more specific |
 | Subagent bypasses restrictions | Missing Task deny | Add `Task(agent-name)` to deny |
+| Unreachable rule warning | Rule order issue | Reorder or narrow broader rules |

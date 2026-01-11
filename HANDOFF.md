@@ -2,8 +2,8 @@
 
 > **Purpose**: Provide complete context for continuing development of this skill in Claude Code
 > **Author**: Anthony Velte & Claude Opus 4.5
-> **Last Updated**: January 10, 2026 (Session 5)
-> **Session**: This document captures context from 5 Claude.ai sessions
+> **Last Updated**: January 11, 2026 (Session 6)
+> **Session**: This document captures context from 6 Claude.ai sessions
 
 ---
 
@@ -54,6 +54,20 @@ A Claude Code skill that audits and optimizes Claude Code installations to curre
 - Updated GitHub URLs from placeholder `yourusername` to `vbonk`
 - Verified Claude Code latest version (npm registry)
 
+### Session 6 (January 11, 2026)
+- Removed repo-template contamination (13 files)
+- Rewrote CLAUDE.md to be optimizer-specific
+- Updated version target from 2.1.0 to 2.1.3
+- Added mcp-auditor (new agent for MCP server configurations)
+- Added unreachable permission rule detection (2.1.3 feature)
+- Added `once: true` and `agent_type` hook options
+- Added missing settings keys: `fileSuggestion`, `releaseChannel`
+- Added environment variables documentation
+- Added `context: fork`, `agent`, `user-invocable` frontmatter options
+- Added MCP wildcard syntax (`mcp__server__*`)
+- Added named sessions support
+- Updated all tool lists with new tools
+
 ---
 
 ## Architecture Decisions
@@ -89,8 +103,8 @@ This follows the pattern of other Claude Code skills that are distributed as Git
 ## Current State (as of January 10, 2026)
 
 ### What's Complete
-- [x] SKILL.md with correct version requirements (2.1.0+)
-- [x] 5 specialized auditor agents
+- [x] SKILL.md with correct version requirements (2.1.3+)
+- [x] 6 specialized auditor agents (added mcp-auditor)
 - [x] 4 reference documents
 - [x] Installation script
 - [x] QA process document
@@ -116,18 +130,26 @@ This follows the pattern of other Claude Code skills that are distributed as Git
 
 ---
 
-## Version Information (Verified January 10, 2026)
+## Version Information (Verified January 11, 2026)
 
 | Item | Value | Source |
 |------|-------|--------|
-| Latest Claude Code | 2.1.3 | npm registry |
+| Latest Claude Code | 2.1.3 | npm registry, GitHub CHANGELOG |
 | Major release | 2.1.0 (Jan 7, 2026) | GitHub, VentureBeat |
-| Our minimum version | 2.1.0 | Required for skills hot-reload |
+| Our minimum version | 2.1.3 | Full feature coverage |
 | Skills docs URL | code.claude.com/docs/en/skills | Official |
 | Hooks docs URL | code.claude.com/docs/en/hooks | Official |
 | Hook events (12 total) | PreToolUse, PostToolUse, PostToolUseFailure, PermissionRequest, Notification, UserPromptSubmit, SessionStart, SessionEnd, Stop, SubagentStart, SubagentStop, PreCompact | SDK Reference |
 
-**Note**: 2.1.3 changelog details need verification in live Claude Code environment before updating documentation.
+### Key Features by Version
+| Version | Features Covered |
+|---------|------------------|
+| 2.1.3 | Unreachable permission rule detection, release channel, merged skills/commands |
+| 2.1.2 | `agent_type` in SessionStart, Windows path deprecation |
+| 2.1.0 | Skill hot-reload, `context: fork`, `once: true` hooks, `agent` field |
+| 2.0.70 | MCP wildcard permissions (`mcp__server__*`) |
+| 2.0.65 | `fileSuggestion` setting |
+| 2.0.64 | Named sessions, `.claude/rules/` directory |
 
 ---
 
@@ -152,7 +174,8 @@ claude-code-optimizer/
 │   ├── config-auditor.md       # Settings.json, CLAUDE.md specialist
 │   ├── hooks-auditor.md        # Hook configuration specialist
 │   ├── permissions-auditor.md  # Permission rules specialist
-│   └── workflow-auditor.md     # Commands/agents/skills specialist
+│   ├── workflow-auditor.md     # Commands/agents/skills specialist
+│   └── mcp-auditor.md          # MCP server configurations
 └── scripts/
     └── install.sh              # Automated installation
 ```
@@ -220,7 +243,7 @@ A: A Claude Code skill that audits and optimizes Claude Code installations.
 A: Anthony Velte is the project owner; target users are Claude Code users wanting to verify/optimize their setup.
 
 **Q: What version of Claude Code does it target?**
-A: 2.1.0 or later (current latest: 2.1.3 as of Jan 10, 2026).
+A: 2.1.3 or later (current latest: 2.1.3 as of Jan 11, 2026).
 
 **Q: Why are there so many files?**
 A: Subagent architecture for modularity; progressive disclosure for context efficiency.

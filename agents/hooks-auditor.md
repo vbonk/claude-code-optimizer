@@ -23,8 +23,9 @@ Valid: `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `PermissionRequest`, `
 
 ### Matcher Patterns
 - Must be valid regex or exact tool name
-- Common tools: `Bash`, `Read`, `Write`, `Edit`, `Grep`, `Glob`, `Task`
-- MCP format: `mcp__servername__toolname`
+- Common tools: `Bash`, `Read`, `Write`, `Edit`, `Grep`, `Glob`, `Task`, `TaskOutput`
+- Additional tools: `NotebookEdit`, `TodoWrite`, `KillShell`, `WebFetch`, `WebSearch`
+- MCP format: `mcp__servername__toolname` (wildcard: `mcp__server__*`)
 
 ### Command Security
 Flag these patterns:
@@ -43,10 +44,25 @@ Flag these patterns:
       "hooks": [{
         "type": "command",
         "command": "...",
-        "timeout": 60
+        "timeout": 60,
+        "once": true
       }]
     }]
   }
+}
+```
+
+### Hook Options (2.1.0+)
+- `once: true` - Run hook only once per session (useful for setup tasks)
+- `timeout` - Max execution time in seconds (default: 60)
+
+### SessionStart Hook Input (2.1.2+)
+When `--agent` flag is specified, SessionStart receives `agent_type` field:
+```json
+{
+  "session_id": "abc123",
+  "agent_type": "custom-agent",
+  "cwd": "/project/path"
 }
 ```
 
@@ -75,3 +91,5 @@ Flag these patterns:
 - Timeout too short or too long
 - Command not found / not executable
 - Security risks in command
+- Missing `once: true` for one-time setup hooks
+- Not using `agent_type` when agent-specific behavior needed

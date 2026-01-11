@@ -28,11 +28,19 @@ ls -la .claude/rules/*.md ~/.claude/rules/*.md 2>/dev/null
 
 ### Settings.json
 1. **Valid JSON**: Parse with `jq .`
-2. **Valid keys only** (2.1.0+):
+2. **Valid keys only** (2.1.3+):
    - `hooks`, `permissions`, `env`, `mcpServers`
    - `model`, `theme`, `respectGitignore`, `language`
+   - `fileSuggestion` - Custom `@` file search command
+   - `releaseChannel` - `stable` or `latest`
 3. **No deprecated keys**
 4. **Proper nesting structure**
+
+### Environment Variables
+Check for useful env vars:
+- `CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS` - Override file read limit
+- `CLAUDE_CODE_SHELL` - Custom shell override
+- `FORCE_AUTOUPDATE_PLUGINS` - Control plugin updates
 
 ### CLAUDE.md
 1. **Exists in correct location**
@@ -72,3 +80,5 @@ ls -la .claude/rules/*.md ~/.claude/rules/*.md 2>/dev/null
 - Sensitive data in config
 - Missing project-level settings
 - Conflicting user/project settings
+- Windows managed settings in deprecated path
+- Missing `releaseChannel` configuration (defaults to stable)

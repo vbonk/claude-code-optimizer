@@ -47,6 +47,9 @@
 | `*` | All tools |
 | `""` (empty) | All tools |
 | `mcp__github__*` | All GitHub MCP tools |
+| `mcp__server__*` | All tools from specific MCP server |
+| `Task` | All subagent invocations |
+| `TaskOutput` | Background task result retrieval |
 
 ## Hook Input Schema
 
@@ -64,6 +67,19 @@ All hooks receive JSON on stdin:
   }
 }
 ```
+
+### SessionStart Input (2.1.2+)
+When `--agent` flag is specified, SessionStart receives additional field:
+```json
+{
+  "session_id": "abc123",
+  "cwd": "/current/directory",
+  "hook_event_name": "SessionStart",
+  "agent_type": "custom-agent"
+}
+```
+
+Use `agent_type` for agent-specific initialization logic.
 
 ## Hook Output (Exit Codes)
 

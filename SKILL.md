@@ -5,7 +5,7 @@ description: Audit and optimize Claude Code installations to current best practi
 
 # Claude Code Optimizer
 
-Audit and optimize Claude Code installations. Requires Claude Code 2.1.0 or later.
+Audit and optimize Claude Code installations. Requires Claude Code 2.1.3 or later.
 
 ## Quick Start
 
@@ -26,6 +26,7 @@ Invoke via Task tool with appropriate `subagent_type`:
 | `hooks-auditor` | Audits hook configurations |
 | `permissions-auditor` | Audits permission patterns |
 | `workflow-auditor` | Audits commands, agents, and skills |
+| `mcp-auditor` | Audits MCP server configurations |
 
 Agent definitions are in `agents/` directory. Install to `~/.claude/agents/` or `.claude/agents/`.
 
@@ -44,15 +45,17 @@ CLAUDE.local.md                 # Local overrides (gitignored)
 ```
 
 ### Settings.json Structure
-Valid top-level keys (2.1.0+):
+Valid top-level keys (2.1.3+):
 - `hooks` - Event handlers
 - `permissions` - Tool permissions (allow/deny arrays)
 - `env` - Environment variables
 - `mcpServers` - MCP server configurations
 - `model` - Default model
 - `theme` - UI theme
-- `respectGitignore` - File picker behavior (2.1.0+)
-- `language` - Response language (2.1.0+)
+- `respectGitignore` - File picker behavior
+- `language` - Response language
+- `fileSuggestion` - Custom `@` file search command
+- `releaseChannel` - `stable` or `latest` channel toggle
 
 ### Hook Events (2.1.0+)
 Valid event names:
@@ -63,9 +66,10 @@ Valid event names:
 
 ### Tool Names for Matchers
 - `Bash`, `Read`, `Write`, `Edit`
-- `Grep`, `Glob`, `Task`
+- `Grep`, `Glob`, `Task`, `TaskOutput`
 - `WebFetch`, `WebSearch`
-- `mcp__*` for MCP tools
+- `NotebookEdit`, `TodoWrite`, `KillShell`
+- `mcp__*` for MCP tools (wildcard: `mcp__server__*`)
 
 ### Permission Patterns
 ```json
@@ -98,13 +102,15 @@ For detailed audit procedures, see:
 
 ## Version Compatibility
 
-This skill targets Claude Code 2.1.0+ features:
+This skill targets Claude Code 2.1.3+ features:
 - Skill hot-reload
-- Forked sub-agent context
-- Hook frontmatter in skills/agents
+- Forked sub-agent context (`context: fork`)
+- Hook frontmatter in skills/agents with `once: true` option
 - YAML-style allowed-tools
-- Language setting
-- respectGitignore setting
+- Unreachable permission rule detection
+- MCP wildcard permissions (`mcp__server__*`)
+- Named sessions (`/rename`, `/resume <name>`)
+- Release channel configuration
 
 Check version: `claude --version`
 Update: `claude update`

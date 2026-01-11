@@ -23,6 +23,7 @@ You coordinate comprehensive audits of Claude Code installations by invoking spe
    - `hooks-auditor` - Hook configurations
    - `permissions-auditor` - Permission patterns
    - `workflow-auditor` - Commands, agents, skills
+   - `mcp-auditor` - MCP server configurations
 
 3. **Collect findings** from each auditor
 
