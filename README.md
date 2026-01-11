@@ -9,9 +9,43 @@
 [![License](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
 [![Validation](https://img.shields.io/badge/checks-34%2F34%20passed-brightgreen?style=flat-square)](#validation)
 
-[Features](#features) • [Installation](#installation) • [Usage](#usage) • [Architecture](#architecture) • [Documentation](#documentation)
+[What Is This?](#what-is-this) • [Features](#features) • [Installation](#installation) • [Usage](#usage) • [Architecture](#architecture)
 
 </div>
+
+---
+
+## What Is This?
+
+**Claude Code** is Anthropic's AI-powered coding assistant that runs in your terminal. It can read your codebase, write and edit files, run commands, and help you build software through natural conversation.
+
+**Claude Code Optimizer** is a *skill* — a plugin that extends Claude Code's capabilities. When installed, it gives Claude the ability to audit your Claude Code setup, find misconfigurations, identify security issues, and recommend optimizations.
+
+Think of it as a health check for your Claude Code installation:
+
+```
+You: "Audit my Claude Code setup"
+
+Claude: Analyzing your configuration...
+
+## Audit Report
+
+| Severity | Area | Issue | Fix |
+|----------|------|-------|-----|
+| 🔴 High | Hooks | Invalid event `postToolUse` | Use `PostToolUse` (case-sensitive) |
+| 🟡 Medium | Permissions | Overly broad `Bash(*)` | Scope to specific commands |
+| 🟢 Info | MCP | Unused server configured | Remove or configure |
+
+Recommendations:
+1. Fix hook event name — hooks won't fire with wrong casing
+2. Tighten permissions to reduce security surface
+```
+
+**Who is this for?**
+- Developers who want to verify their Claude Code setup is optimal
+- Teams standardizing Claude Code configurations
+- Power users exploring advanced features (hooks, MCP, custom agents)
+- Anyone troubleshooting why something isn't working
 
 ---
 
