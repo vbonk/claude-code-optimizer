@@ -134,6 +134,86 @@ Check for MCP tool permissions in settings:
 | Data exposure | No deny rules | Add deny rules for sensitive tools |
 | Secrets in config | Hardcoded values | Use `${ENV_VAR}` syntax |
 
+## Security Deep Dive
+
+### Secret Detection Patterns
+
+**Critical - Hardcoded Secrets**:
+```bash
+# Scan for hardcoded secrets in MCP config
+grep -iE '(api[_-]?key|apikey|secret|password|token|credential).*[:=].*["\047][^$]' ~/.claude/settings.json .mcp.json 2>/dev/null
+```
+
+Patterns to flag:
+| Pattern | Risk Level | Example |
+|---------|------------|---------|
+| `"api_key": "sk-..."` | Critical | Hardcoded API key |
+| `"password": "..."` | Critical | Hardcoded password |
+| `"token": "ghp_..."` | Critical | GitHub token exposed |
+| `"secret": "..."` | Critical | Generic secret |
+
+**Safe Patterns** (use these instead):
+```json
+{
+  "env": {
+    "API_KEY": "${MY_API_KEY}",
+    "TOKEN": "${GITHUB_TOKEN}"
+  }
+}
+```
+
+### High-Risk MCP Servers
+
+| Server Type | Risk | Mitigation |
+|-------------|------|------------|
+| `filesystem` with `/` | Critical | Scope to project dir only |
+| `fetch`/`http` | High | Add URL allowlists |
+| `postgres`/`mysql` | High | Never use prod creds |
+| `shell`/`exec` | Critical | Avoid or heavily restrict |
+| `browser` | High | Review allowed actions |
+
+### Permission Recommendations by Server
+
+**filesystem server**:
+```json
+{
+  "permissions": {
+    "allow": ["mcp__filesystem__read_file"],
+    "deny": [
+      "mcp__filesystem__write_file",
+      "mcp__filesystem__delete_*"
+    ]
+  }
+}
+```
+
+**github server**:
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp__github__list_*",
+      "mcp__github__get_*"
+    ],
+    "deny": [
+      "mcp__github__delete_*",
+      "mcp__github__create_*"
+    ]
+  }
+}
+```
+
+### Security Audit Checklist
+
+1. [ ] No hardcoded secrets in config files
+2. [ ] All env vars use `${VAR}` syntax
+3. [ ] Filesystem servers scoped to project
+4. [ ] Deny rules for destructive operations
+5. [ ] Unused servers removed
+6. [ ] Unknown servers reviewed/removed
+7. [ ] Network-accessing servers justified
+8. [ ] Database servers not using prod creds
+
 ## Recommendations to Generate
 
 - Add deny rules for dangerous MCP tools
@@ -141,3 +221,5 @@ Check for MCP tool permissions in settings:
 - Scope filesystem servers to project directories
 - Remove unused MCP servers
 - Use server-level wildcards for broad permissions
+- Review and justify network-accessing servers
+- Never configure database servers with production credentials

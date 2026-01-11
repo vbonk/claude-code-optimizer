@@ -96,3 +96,46 @@ Example unreachable rule:
 - Fix unreachable rules (reorder or remove)
 - Use `Task(AgentName)` to restrict specific subagents
 - Use `mcp__server__*` for MCP server-level permissions
+
+## Pattern Validation
+
+### Common Pattern Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `Bash(git:*)` | Only matches literal "git", not "git status" | Use `Bash(git *:*)` |
+| `Bash(npm install:*)` | Won't match "npm install lodash" | Use `Bash(npm install*:*)` |
+| `Edit(.env)` | Missing description pattern | Use `Edit(.env:*)` |
+| `mcp__github__` | Incomplete pattern | Use `mcp__github__*` |
+| `Task(*)` | Allows ALL agents | Be specific: `Task(safe-agent)` |
+
+### Pattern Matching Rules
+1. Patterns are **glob-style**, not regex
+2. `*` matches any characters within a segment
+3. Colon (`:`) separates command from description
+4. Both parts must match for parameterized tools
+5. Case-sensitive matching
+
+### Validation Procedure
+```bash
+# Test if a pattern would match a command
+# Pattern: Bash(git *:*)
+# Test: "git status" with description "Check repo status"
+
+# The pattern "git *" matches "git status" ✓
+# The pattern "*" matches "Check repo status" ✓
+# Result: MATCH
+```
+
+### Flag These Pattern Issues
+
+**Warning** (likely won't work as expected):
+- Missing `:*` suffix on parameterized tools
+- Space before colon: `Bash(git status :*)`
+- Using regex syntax: `Bash(git (status|log):*)`
+- Escaping that's not needed: `Bash(git\ status:*)`
+
+**Info** (suboptimal but functional):
+- Overly broad patterns that could be narrower
+- Duplicate patterns (redundant)
+- Patterns that never match any tool

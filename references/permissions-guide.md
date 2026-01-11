@@ -207,6 +207,36 @@ Reorder rules or use more specific allows:
 }
 ```
 
+## Pattern Validation Guide
+
+### How Patterns Work
+Patterns use **glob-style** matching (not regex):
+- `*` matches any characters
+- Patterns are case-sensitive
+- Colon (`:`) separates command from description
+
+### Common Mistakes
+
+| Wrong | Why It Fails | Correct |
+|-------|--------------|---------|
+| `Bash(git:*)` | Matches only "git", not "git status" | `Bash(git *:*)` |
+| `Bash(npm install:*)` | Won't match "npm install lodash" | `Bash(npm install*:*)` |
+| `Edit(.env)` | Missing description pattern | `Edit(.env:*)` |
+| `Bash(git (status\|log):*)` | Regex syntax doesn't work | `Bash(git *:*)` |
+
+### Pattern Testing
+To verify a pattern works:
+1. Add pattern to allow list
+2. Try the command in Claude Code
+3. If prompted for permission, pattern didn't match
+4. Adjust and retry
+
+### Best Practices
+- Always include `:*` for parameterized tools
+- Use `*` sparingly - prefer specific patterns
+- Test patterns before relying on them
+- Review patterns after Claude Code updates
+
 ## Common Issues
 
 | Issue | Cause | Fix |
@@ -215,3 +245,4 @@ Reorder rules or use more specific allows:
 | Can't deny specific command | Allow rule too broad | Make allow more specific |
 | Subagent bypasses restrictions | Missing Task deny | Add `Task(agent-name)` to deny |
 | Unreachable rule warning | Rule order issue | Reorder or narrow broader rules |
+| Pattern doesn't match | Missing `:*` or wrong syntax | See Pattern Validation Guide above |
