@@ -6,11 +6,11 @@
 
 **Name:** Claude Code Optimizer
 **Type:** Claude Code Skill (audit/optimization tool)
-**Target:** Claude Code 2.1.0+
+**Target:** Claude Code 2.1.3+
 
 ## What This Is
 
-A skill that audits and optimizes Claude Code installations. Uses a subagent architecture with 5 specialized auditors coordinated by an orchestrator.
+A skill that audits and optimizes Claude Code installations. Uses a subagent architecture with 6 specialized auditors coordinated by an orchestrator.
 
 ## Project Structure
 
@@ -18,8 +18,8 @@ A skill that audits and optimizes Claude Code installations. Uses a subagent arc
 SKILL.md              # Main skill entry point (Claude reads this)
 HANDOFF.md            # Project context for session continuity
 QA-PROCESS.md         # Verification framework
-agents/               # 5 specialized auditor agents
-references/           # Deep-dive guides (progressive disclosure)
+agents/               # 6 specialized auditor agents
+references/           # 5 deep-dive guides (progressive disclosure)
 scripts/install.sh    # Installation script
 ```
 
@@ -27,7 +27,7 @@ scripts/install.sh    # Installation script
 
 - `SKILL.md` — The skill definition Claude loads
 - `agents/audit-orchestrator.md` — Coordinates full audits
-- `agents/*-auditor.md` — Specialized auditors (config, hooks, permissions, workflow)
+- `agents/*-auditor.md` — Specialized auditors (config, hooks, permissions, mcp, workflow)
 - `references/*.md` — Detailed guides loaded on-demand
 
 ## Workflow

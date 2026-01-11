@@ -136,6 +136,42 @@ Recommend:
 - Use `/resume <name>` for continuity
 - Clean up stale sessions periodically
 
+## Plugins & Marketplace (2.0.70+)
+
+Check installed plugins:
+```bash
+# In Claude Code
+/plugins  # View installed plugins
+```
+
+### Plugin Audit
+- Review installed plugins for necessity
+- Check for outdated plugins (auto-update toggle in /config)
+- Remove unused plugins to reduce startup time
+- Verify plugin permissions are appropriate
+
+### Marketplace Discovery
+- Use `/plugins` to browse available plugins
+- Check plugin ratings and reviews before installing
+- Prefer official or well-maintained plugins
+
+## Useful Commands Reference
+
+| Command | Purpose | When to Use |
+|---------|---------|-------------|
+| `/stats` | View usage statistics | Check session metrics |
+| `/context` | View context usage | Before long tasks |
+| `/compact` | Compress context | When context exhausted |
+| `/clear` | Clear conversation | Fresh start needed |
+| `/rename` | Name current session | Important sessions |
+| `/resume` | Resume named session | Continue previous work |
+| `/config` | View/change settings | Adjust preferences |
+| `/permissions` | Manage permissions | Review allow/deny rules |
+| `/hooks` | View hook config | Debug hook issues |
+| `/plugins` | Manage plugins | Install/remove plugins |
+| `/theme` | Change UI theme | Visual preferences |
+| `/terminal-setup` | Configure terminal | Fix display issues |
+
 ## Common Issues
 
 - Missing or vague description
@@ -147,3 +183,5 @@ Recommend:
 - Missing `context: fork` for isolated operations
 - Hooks in frontmatter with invalid event names
 - `user-invocable: true` on internal-only skills
+- Too many plugins slowing startup
+- Outdated plugins causing issues

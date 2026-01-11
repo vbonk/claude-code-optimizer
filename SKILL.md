@@ -69,6 +69,7 @@ Valid event names:
 - `Grep`, `Glob`, `Task`, `TaskOutput`
 - `WebFetch`, `WebSearch`
 - `NotebookEdit`, `TodoWrite`, `KillShell`
+- `LSP` (Language Server Protocol, 2.0.74+)
 - `mcp__*` for MCP tools (wildcard: `mcp__server__*`)
 
 ### Permission Patterns
